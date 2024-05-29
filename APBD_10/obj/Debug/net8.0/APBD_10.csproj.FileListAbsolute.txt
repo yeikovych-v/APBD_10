@@ -129,9 +129,10 @@ C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\staticwebasset
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.APBD_10.props
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\scopedcss\bundle\APBD_10.styles.css
-C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.csproj.CopyComplete
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.dll
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\refint\APBD_10.dll
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.pdb
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.genruntimeconfig.cache
 C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\ref\APBD_10.dll
+C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.sourcelink.json
+C:\Users\Volodymyr\RiderProjects\APBD_10\APBD_10\obj\Debug\net8.0\APBD_10.csproj.CopyComplete
