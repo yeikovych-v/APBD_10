@@ -7,21 +7,21 @@ namespace APBD_10.Service;
 
 public class ApiService(ApiContext context)
 {
-    public IResult IssuePrescription(PrescriptionEntryDto dto)
+    public IResult IssuePrescription(OneFileDto.PrescriptionEntryDto dto)
     {
         if (InvalidDueDate(dto.Date, dto.DueDate))
         {
             return Results.BadRequest("Invalid Due Date.");
         }
 
-        var patient = new Patient(dto.PatientDto);
+        var patient = new OneFileModels.Patient(dto.PatientDto);
 
         if (PatientNotExists(patient))
         {
             InsertPatient(patient);
         }
 
-        var doctor = new Doctor(dto.PrescriptionEntryDoctorDto);
+        var doctor = new OneFileModels.Doctor(dto.PrescriptionEntryDoctorDto);
 
         if (DoctorNotExists(doctor))
         {
@@ -40,7 +40,7 @@ public class ApiService(ApiContext context)
             return Results.BadRequest("Prescription can include a maximum of 10 medications.");
         }
 
-        var prescription = new Prescription()
+        var prescription = new OneFileModels.Prescription()
         {
             Date = dto.Date,
             DueDate = dto.DueDate,
@@ -63,13 +63,13 @@ public class ApiService(ApiContext context)
         }
 
 
-        var patientDto = new PatientDto(patient);
+        var patientDto = new OneFileDto.PatientDto(patient);
 
         var prescriptions = SelectAllPrescriptionsForPatient(patient);
 
         var prescriptionDtos = ParseToDtoList(prescriptions);
         
-        var patientDisplay = new PatientDisplayDto()
+        var patientDisplay = new OneFileDto.PatientDisplayDto()
         {
             PatientDto = patientDto,
             Prescriptions = prescriptionDtos
@@ -78,35 +78,35 @@ public class ApiService(ApiContext context)
         return Results.Ok(patientDisplay);
     }
 
-    private List<PrescriptionDto> ParseToDtoList(List<Prescription> prescriptions)
+    private List<OneFileDto.PrescriptionDto> ParseToDtoList(List<OneFileModels.Prescription> prescriptions)
     {
-        var dtos = new List<PrescriptionDto>();
+        var dtos = new List<OneFileDto.PrescriptionDto>();
 
         foreach (var prescription in prescriptions)
         {
-            dtos.Add(new PrescriptionDto(prescription));
+            dtos.Add(new OneFileDto.PrescriptionDto(prescription));
         }
         
         return dtos;
     }
 
-    private List<Prescription> SelectAllPrescriptionsForPatient(Patient patient)
+    private List<OneFileModels.Prescription> SelectAllPrescriptionsForPatient(OneFileModels.Patient patient)
     {
         return context.Prescriptions.Where(p => p.IdPatient == patient.IdPatient).ToList();
     }
 
-    private Patient? SelectPatientById(int patientId)
+    private OneFileModels.Patient? SelectPatientById(int patientId)
     {
         return context.Patients.FirstOrDefault(p => p.IdPatient == patientId);
     }
 
-    private void InsertPrescription(Prescription prescription)
+    private void InsertPrescription(OneFileModels.Prescription prescription)
     {
         context.Prescriptions.Add(prescription);
         context.SaveChanges();
     }
 
-    private bool AnyMedicamentNotExists(List<Medicament> meds)
+    private bool AnyMedicamentNotExists(List<OneFileModels.Medicament> meds)
     {
         foreach (var med in meds)
         {
@@ -116,25 +116,25 @@ public class ApiService(ApiContext context)
         return false;
     }
 
-    private List<Medicament> GetMedicamentListFromPrescriptionDto(List<MedicamentDto> medDtos)
+    private List<OneFileModels.Medicament> GetMedicamentListFromPrescriptionDto(List<OneFileDto.MedicamentDto> medDtos)
     {
-        var meds = new List<Medicament>();
+        var meds = new List<OneFileModels.Medicament>();
 
         foreach (var dto in medDtos)
         {
-            meds.Add(new Medicament(dto));
+            meds.Add(new OneFileModels.Medicament(dto));
         }
 
         return meds;
     }
 
-    public void InsertPatient(Patient patient)
+    public void InsertPatient(OneFileModels.Patient patient)
     {
         context.Patients.Add(patient);
         context.SaveChanges();
     }
 
-    private bool PatientNotExists(Patient patient)
+    private bool PatientNotExists(OneFileModels.Patient patient)
     {
         return !context.Patients.Contains(patient);
     }
@@ -144,7 +144,7 @@ public class ApiService(ApiContext context)
         return dueDate >= date;
     }
 
-    private bool DoctorNotExists(Doctor doc)
+    private bool DoctorNotExists(OneFileModels.Doctor doc)
     {
         return !context.Doctors.Contains(doc);
     }

@@ -5,11 +5,11 @@ namespace APBD_10.Context;
 
 public partial class ApiContext : DbContext
 {
-    public virtual DbSet<Doctor> Doctors { get; set; }
-    public virtual DbSet<Patient> Patients { get; set; }
-    public virtual DbSet<Medicament> Medicaments { get; set; }
-    public virtual DbSet<Prescription> Prescriptions { get; set; }
-    public virtual DbSet<PrescriptionMedicament> PrescriptionMedicaments { get; set; }
+    public virtual DbSet<OneFileModels.Doctor> Doctors { get; set; }
+    public virtual DbSet<OneFileModels.Patient> Patients { get; set; }
+    public virtual DbSet<OneFileModels.Medicament> Medicaments { get; set; }
+    public virtual DbSet<OneFileModels.Prescription> Prescriptions { get; set; }
+    public virtual DbSet<OneFileModels.PrescriptionMedicament> PrescriptionMedicaments { get; set; }
     
     public ApiContext()
     {
@@ -26,7 +26,7 @@ public partial class ApiContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Doctor>(entity =>
+        modelBuilder.Entity<OneFileModels.Doctor>(entity =>
         {
             entity.HasKey(d => d.IdDoctor);
             entity.Property(d => d.FirstName).IsRequired().HasMaxLength(100);
@@ -34,7 +34,7 @@ public partial class ApiContext : DbContext
             entity.Property(d => d.Email).IsRequired().HasMaxLength(100);
         });
 
-        modelBuilder.Entity<Patient>(entity =>
+        modelBuilder.Entity<OneFileModels.Patient>(entity =>
         {
             entity.HasKey(p => p.IdPatient);
             entity.Property(p => p.FirstName).IsRequired().HasMaxLength(100);
@@ -42,7 +42,7 @@ public partial class ApiContext : DbContext
             entity.Property(p => p.BirthDate).IsRequired();
         });
 
-        modelBuilder.Entity<Medicament>(entity =>
+        modelBuilder.Entity<OneFileModels.Medicament>(entity =>
         {
             entity.HasKey(m => m.IdMedicament);
             entity.Property(m => m.Name).IsRequired().HasMaxLength(100);
@@ -50,7 +50,7 @@ public partial class ApiContext : DbContext
             entity.Property(m => m.Type).HasMaxLength(100);
         });
 
-        modelBuilder.Entity<Prescription>(entity =>
+        modelBuilder.Entity<OneFileModels.Prescription>(entity =>
         {
             entity.HasKey(p => p.IdPrescription);
             entity.Property(p => p.Date).IsRequired();
@@ -65,7 +65,7 @@ public partial class ApiContext : DbContext
                 .HasForeignKey(p => p.IdDoctor);
         });
 
-        modelBuilder.Entity<PrescriptionMedicament>(entity =>
+        modelBuilder.Entity<OneFileModels.PrescriptionMedicament>(entity =>
         {
             entity.HasKey(pm => new { pm.IdMedicament, pm.IdPrescription });
 

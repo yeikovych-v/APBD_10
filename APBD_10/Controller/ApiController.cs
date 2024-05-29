@@ -11,7 +11,7 @@ public class ApiController(ApiService service)
 
     [HttpPost]
     [Route("api/prescription")]
-    public IResult CreatePrescription(PrescriptionEntryDto dto)
+    public IResult CreatePrescription(OneFileDto.PrescriptionEntryDto dto)
     {
         return service.IssuePrescription(dto);
     }
